@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Activitar Template">
+    <meta name="keywords" content="Activitar, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SPORTY</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Интернет-магазин</title>
+  <style>
+    
+    .container {
+      color: #111111; 	
+      max-width: 1400px;
+      margin: 20 auto;
+      padding: 20px;
+    }
+
+    .catalog {
+      margin: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .product-card {
+      border: 1px solid #ddd;
+      padding: 20px;
+      width: calc(30% - 20px);
+      text-align: center;
+      background-color: #fff;
+      border-radius: 5px;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .product-card h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .product-card p {
+      margin: 5px 0;
+      color: #777;
+    }
+
+    .product-card button {
+      background-color: #e16521;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .product-card button:hover {
+      background-color: #e4381C;
+    }
+
+    .cart {
+      border: 1px solid #ddd;
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 5px;
+    }
+
+    .cart-items {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .cart p {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .checkout-btn {
+      background-color: #e16521;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .checkout-btn:hover {
+      background-color: #e16521;
+    }
+
+    .promo-code {
+      margin-top: 20px;
+    }
+
+    .promo-code input[type="text"] {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .apply-btn {
+      background-color: #e16521;
+      margin: 20px;
+      color: white;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .apply-btn:hover {
+      background-color: #e16521;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    .popup-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="popup">
+    <div class="popup-content">
+        <span class="close-btn">&times;</span>
+        <h2>Оплата заказа</h2>
+        <p>Итого сумма заказа: <span id="total-price-popup"></span>₽</p>
+        <form id="payment-form">
+            <label for="name">Имя и фамилия:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="phone">Номер телефона:</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <label for="delivery">Способ доставки:</label>
+            <select id="delivery" name="delivery" required>
+                <option value="courier">Курьер</option>
+                <option value="pickup">Самовывоз</option>
+            </select>
+
+            <div id="courier-options" style="display:none;">
+                <label for="payment-courier">Способ оплаты:</label>
+                <select id="payment-courier" name="payment-courier" required>
+                    <option value="now">Банковской картой сейчас</option>
+                    <option value="courier">Банковской картой курьеру</option>
+                </select>
+                <label for="address">Адрес проживания:</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+
+            <div id="pickup-options" style="display:none;">
+                <label for="payment-pickup">Способ оплаты:</label>
+                <select id="payment-pickup" name="payment-pickup" required>
+                    <option value="now">Банковской картой сейчас</option>
+                    <option value="pickup">Банковской картой при получении</option>
+                </select>
+            </div>
+
+            <input type="submit" value="Оплатить">
+        </form>
+    </div>
+</div>
+  <header class="header-section header-normal">
+        <div class="container-fluid">
+            <div class="logo">
+                <a href="./index.html">
+                    <img src="img/logo.png" alt="">
+                </a>
+            </div>
+            <div class="top-social">
+                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-youtube-play"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+            </div>
+            <div class="container">
+                <div class="nav-menu">
+                    <nav class="mainmenu mobile-menu">
+                        <ul>
+                            <li><a href="./index.html">Главная</a></li>
+                            <li><a href="./about-us.html">О нас</a></li>
+                            <li class="active"><a href="./katalog.html">Каталог</a></li>
+                            <li><a href="./people.html">Отзывы</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
+
+  <div class="container">
+    <h2>Каталог товаров</h2>
+    <div class="catalog">
+      <div class="product-card" id="product1">
+        <a href="card.html">
+        <img src="img/shop/nike1.jpg" alt="Product 1"></a>
+        <h3>Nike Air Force 1</h3>
+        <p>Цена: 3999₽</p>
+        <p>Рейтинг: 4.5</p>
+        <button class="add-to-cart" data-price="3999">Добавить в корзину</button>
+      </div>
+      <div class="product-card" id="product2">
+        <img src="img/shop/nike11.jpg" alt="Product 2">
+        <h3>Nike Air Force 1</h3>
+        <p>Цена: 7990₽</p>
+        <p>Рейтинг: 4.8</p>
+        <button class="add-to-cart" data-price="7990">Добавить в корзину</button>
+      </div>
+      <div class="product-card" id="product3">
+        <img src="img/shop/max97.jpeg" alt="Product 3">
+        <h3>Nike Air Max 97</h3>
+        <p>Цена: 12500₽</p>
+        <p>Рейтинг: 4.4</p>
+        <button class="add-to-cart" data-price="12500">Добавить в корзину</button>
+      </div>
+      <div class="product-card" id="product4">
+        <img src="img/shop/nike2.jpg" alt="Product 4">
+        <h3>Nike Air Max 90</h3>
+        <p>Цена: 13900₽</p>
+        <p>Рейтинг: 4.9</p>
+        <button class="add-to-cart" data-price="13900">Добавить в корзину</button>
+      </div>
+      <div class="product-card" id="product5">
+        <img src="img/shop/adikmar.jpg" alt="Product 5">
+        <h3>Adidas Marathon tr 26</h3>
+        <p>Цена: 4500₽</p>
+        <p>Рейтинг: 4.2</p>
+        <button class="add-to-cart" data-price="4500">Добавить в корзину</button>
+      </div>
+      <div class="product-card" id="product6">
+        <a href="card2.html">
+          <img src="img/shop/derup.jpg" alt="Product 6"></a>
+        <h3>Adidas Deerupt Runner</h3>
+        <p>Цена: 20000₽</p>
+        <p>Рейтинг: 4.5</p>
+        <button class="add-to-cart" data-price="20000">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product7">
+        <img src="img/shop/Yey.jpg" alt="Product 7">
+        <h3>Adidas Yeezy</h3>
+        <p>Цена: 3500₽</p>
+        <p>Рейтинг: 3.9</p>
+        <button class="add-to-cart" data-price="3500">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product8">
+        <img src="img/shop/samba.jpg" alt="Product 8">
+        <h3>Adidas Samba</h3>
+        <p>Цена: 22350₽</p>
+        <p>Рейтинг: 4.8</p>
+        <button class="add-to-cart" data-price="22350">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product9">
+        <img src="img/shop/adma.jpg" alt="Product 9">
+        <h3>Adidas футболка женская</h3>
+        <p>Цена: 5500₽</p>
+        <p>Рейтинг: 4.5</p>
+        <button class="add-to-cart" data-price="5500">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product10">
+        <img src="img/shop/adima.jpg" alt="Product 10">
+        <h3>Adidas Футболка женская</h3>
+        <p>Цена: 4900₽</p>
+        <p>Рейтинг: 4.4</p>
+        <button class="add-to-cart" data-price="4900">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product11">
+        <img src="img/shop/Adm.jpg" alt="Product 11">
+        <h3>Adidas Футболка мужская</h3>
+        <p>Цена: 3900₽</p>
+        <p>Рейтинг: 4.8</p>
+        <button class="add-to-cart" data-price="3900">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product12">
+        <img src="img/shop/Adm1.jpg" alt="Product 12">
+        <h3>Adidas Футболка мужская</h3>
+        <p>Цена: 5900₽</p>
+        <p>Рейтинг: 4.6</p>
+        <button class="add-to-cart" data-price="5900">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product13">
+        <img src="img/shop/gan.jpg" alt="Product 13">
+        <h3>Гантели разборные 20кг</h3>
+        <p>Цена: 9100₽</p>
+        <p>Рейтинг: 5.0</p>
+        <button class="add-to-cart" data-price="9100">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product14">
+        <img src="img/shop/esp.jpg" alt="Product 14">
+        <h3>Эспандер кистевой 136кг</h3>
+        <p>Цена: 4500₽</p>
+        <p>Рейтинг: 4.1</p>
+        <button class="add-to-cart" data-price="4500">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product15">
+        <img src="img/shop/gir.jpg" alt="Product 15">
+        <h3>Гиря виниловая 24кг</h3>
+        <p>Цена: 7690₽</p>
+        <p>Рейтинг: 4.6</p>
+        <button class="add-to-cart" data-price="7690">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product16">
+        <img src="img/shop/tel.jpg" alt="Product 16">
+        <h3>Футбольный мяч Telstar</h3>
+        <p>Цена: 17700₽</p>
+        <p>Рейтинг: 4.9</p>
+        <button class="add-to-cart" data-price="17700">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product17">
+        <a href="card3.html">
+          <img src="img/shop/braz.jpg" alt="Product 17"></a>
+        <h3>Футбольный мяч Brazuca</h3>
+        <p>Цена: 12900₽</p>
+        <p>Рейтинг: 5.0</p>
+        <button class="add-to-cart" data-price="12900">Добавить в корзину</button>
+      </div>
+	<div class="product-card" id="product18">
+        <img src="img/shop/hp.jpg" alt="Product 18">
+        <h3>Теннисная ракетка Head Prestige</h3>
+        <p>Цена: 8900₽</p>
+        <p>Рейтинг: 4.2</p>
+        <button class="add-to-cart" data-price="8900">Добавить в корзину</button>
+      </div>
+      <div class="product-card" id="product19">
+        <img src="img/shop/spal.jpg" alt="Product 19">
+        <h3>Баскетбольный мяч Spalding</h3>
+        <p>Цена: 22100₽</p>
+        <p>Рейтинг: 5.0</p>
+        <button class="add-to-cart" data-price="22100">Добавить в корзину</button>
+      </div>
+      <div class="product-card" id="product20">
+        <img src="img/shop/mik.jpg" alt="Product 20">
+        <h3>Волейбольный мяч Mikasa</h3>
+        <p>Цена: 12140₽</p>
+        <p>Рейтинг: 4.8</p>
+        <button class="add-to-cart" data-price="12140">Добавить в корзину</button>
+      </div>
+    </div>
+
+
+
+    <div class="cart">
+      <h2>Корзина</h2>
+      <ul class="cart-items"></ul>
+      <p>Итого к оплате: <span class="total-price"></span></p>
+      <div class="promo-code">
+        <input type="text" id="promoInput" placeholder="Введите промокод">
+        <button class="apply-btn" onclick="applyPromo()">Применить</button>
+      </div>
+      <button class="checkout-btn">Оплатить</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const addToCartButtons = document.querySelectorAll('.add-to-cart');
+      const cartItemsList = document.querySelector('.cart-items');
+      const totalPriceSpan = document.querySelector('.total-price');
+      const checkoutBtn = document.querySelector('.checkout-btn');
+      const promoInput = document.getElementById('promoInput');
+    const popup = document.querySelector('.popup');
+    const closeButton = document.querySelector('.close-btn');
+    const deliverySelect = document.getElementById('delivery');
+    const courierOptions = document.getElementById('courier-options');
+    const pickupOptions = document.getElementById('pickup-options');
+
+    checkoutBtn.addEventListener('click', function () {
+    const totalPopup = document.getElementById('total-price-popup');
+    totalPopup.textContent = totalPrice.toFixed(2);
+    popup.style.display = 'block';
+    });
+
+    closeButton.addEventListener('click', function () {
+        popup.style.display = 'none';
+    });
+
+    deliverySelect.addEventListener('change', function () {
+    if (this.value === 'courier') {
+        courierOptions.style.display = 'block';
+        pickupOptions.style.display = 'none';
+    } else if (this.value === 'pickup') {
+        courierOptions.style.display = 'none';
+        pickupOptions.style.display = 'block';
+        showPopup();
+    }
+});
+    document.getElementById('payment-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const delivery = document.getElementById('delivery').value;
+    let payment = '';
+    if (delivery === 'courier') {
+        payment = document.getElementById('payment-courier').value;
+    } else if (delivery === 'pickup') {
+        payment = document.getElementById('payment-pickup').value;
+    }
+    const total = totalPrice.toFixed(2);
+    let paymentMethodText = '';
+
+    if (delivery === 'courier') {
+        const address = document.getElementById('address').value;
+        paymentMethodText = `Адрес проживания: ${address}\n`;
+    }
+
+    const confirmationMessage = `Имя: ${name}\nНомер телефона: ${phone}\nСпособ доставки: ${delivery}\nСпособ оплаты: ${payment}\n${paymentMethodText}Итого сумма заказа: ${total}₽`;
+    alert(confirmationMessage);
+    popup.style.display = 'none';
+});
+      let totalPrice = 0;
+      let discountApplied = false;
+      const cartItems = {};
+
+      addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const price = parseFloat(button.getAttribute('data-price'));
+          totalPrice += price;
+          if (discountApplied) {
+            totalPrice -= price * 0.15;
+          }
+          const itemName = button.parentElement.querySelector('h3').innerText;
+
+          if (cartItems[itemName]) {
+            cartItems[itemName].quantity++;
+          } else {
+            cartItems[itemName] = {
+              price: price,
+              quantity: 1
+            };
+          }
+
+          updateCartUI();
+        });
+      });
+
+      function updateCartUI() {
+        
+        cartItemsList.innerHTML = '';
+        Object.keys(cartItems).forEach(itemName => {
+          const item = cartItems[itemName];
+          const listItem = document.createElement('li');
+          listItem.textContent = `${itemName} x `;
+          const quantitySpan = document.createElement('span');
+          quantitySpan.textContent = item.quantity;
+          quantitySpan.classList.add('quantity');
+          listItem.appendChild(quantitySpan);
+
+          const increaseBtn = document.createElement('button');
+          increaseBtn.textContent = '+';
+          increaseBtn.classList.add('increase-btn');
+          increaseBtn.addEventListener('click', () => {
+            item.quantity++;
+            totalPrice += item.price;
+            if (discountApplied) {
+              totalPrice -= item.price * 0.15;
+            }
+            updateCartUI();
+          });
+          listItem.appendChild(increaseBtn);
+
+          const decreaseBtn = document.createElement('button');
+          decreaseBtn.textContent = '-';
+          decreaseBtn.classList.add('decrease-btn');
+          decreaseBtn.addEventListener('click', () => {
+            if (item.quantity === 1) {
+                delete cartItems[itemName];
+                totalPrice -= item.price;
+            } else {
+                item.quantity--;
+                totalPrice -= item.price;
+                if (discountApplied) {
+                    totalPrice += item.price * 0.15;
+                }
+            }
+            updateCartUI();
+          });
+          listItem.appendChild(decreaseBtn);
+
+          cartItemsList.appendChild(listItem);
+        });
+
+        totalPriceSpan.textContent = `${totalPrice.toFixed(2)}₽`;
+      }
+      
+      function applyPromo() {
+        const promoCode = promoInput.value.trim();
+        if (promoCode === 'DISCOUNT15') {
+          if (!discountApplied) {
+            totalPrice -= totalPrice * 0.15;
+            discountApplied = true;
+            updateCartUI();
+            alert('Промокод успешно применен!');
+          } else {
+            alert('Промокод уже был применен!');
+          }
+        } else {
+          alert('Недействительный промокод!');
+        }
+      }
+
+      checkoutBtn.addEventListener('click', () => {
+        alert('Операция покупки успешно завершена!');
+      });
+    });
+  </script>
+</body>
+</html>
