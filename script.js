@@ -1,9 +1,3 @@
-/*
-I want to thank Paul Rudnitskiy for his idea.
-If you need full work version you can download it here  https://github.com/BlackStar1991/CardProduct
-*/
-
-
 
 window.onload = function () {
 
